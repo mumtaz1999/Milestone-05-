@@ -1,0 +1,90 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #79d0d8; /* Light gray background */
+}
+
+header {
+    background-color: #211370; /* Coral background */
+    color: #79d0d8; /* White text */
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #0a0906; /* Golden yellow accent line */
+}
+
+.profile-pic {
+    border-radius: 50%;
+    width: 120px; /* Set size to 120px */
+    height: 120px; /* Set size to 120px */
+    margin: 0 auto; /* Center the image */
+    display: block;
+    border: 4px solid #070606; /* White border around image */
+}
+
+h1 {
+    font-size: 2.5em;
+    margin: 0;
+    color: #f8f3f3; /* White text */
+}
+
+p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+
+main {
+    padding: 20px;
+    background-color: #fff; /* White background for main content */
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 20px auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Slightly more pronounced shadow */
+}
+
+section {
+    margin-bottom: 20px;
+}
+
+section h2 {
+    color: #b158e9; /* Coral color for section headings */
+    border-bottom: 2px solid #b158e9;
+    padding-bottom: 5px;
+    font-size: 1.6em;
+}
+
+section p {
+    font-size: 1.1em;
+    color: #333; /* Dark gray text */
+    line-height: 1.6;
+}
+
+footer {
+    background-color: #211370; /* Coral background */
+    padding: 10px;
+    text-align: center;
+    color: #79d0d8; /* White text */
+    border-top: 4px solid #ffcc00; /* Golden yellow accent line */
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; /* White text */
+    background-color: #ba2296; /* Golden yellow background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #e5b700; /* Slightly darker golden yellow on hover */
+}
+
+/* Hidden class for elements */
+.hidden {
+    display: none;
+}

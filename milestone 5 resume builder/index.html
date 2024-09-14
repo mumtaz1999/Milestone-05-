@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Resume</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Include the latest version of jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.6.0/jspdf.umd.min.js"></script>
+    <!-- Include the latest version of html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mumtaz</h1>
+        <p>Contact: mumtazarazzak@gmail.com | Phone: (123) 456-7890</p>
+        <img src="mumtaz.jpg" alt="Profile Picture" class="profile-pic">
+    </header>
+    <main>
+        <section id="education">
+            <h2>Education</h2>
+            <p>Bachelor of Dental Technology Dow University of Health Sciences</p>
+            <p>HSC St lawrence Govt Girls Degree College</p>
+            <p>SSC New Generation High School</p>
+        </section>
+        <section id="skills" class="hidden">
+            <h2>Skills</h2>
+            <p>Html</p>
+            <p>CSS</p>
+            <p>Typescript</p>
+            <p>Digital Marketing</p>
+            <p>Python</p>
+            <p>C++</p>
+        </section>
+        <section id="work-experience">
+            <h2>Work Experience</h2>
+            <p> 2017-2020 teaching experience in ShahJee COllegiate</p>
+            <p>2021-2023 MDCAT course Coordinator in Nasra Moazzam Intitute of Apptitude Test Preparation
+            <p>2022-2023 housejob as Dental Technologist in Dow Dental College</p>
+            <p>2023-2024 internship in Dow Dental College</p>
+            </p>
+        </section>
+        <section id="user-info">
+            <h2>Enter Your Username</h2>
+            <input type="text" id="username" placeholder="Enter your username">
+            <button id="generate-link">Generate Resume Link</button>
+            <p id="resume-link" class="hidden"></p>
+        </section>
+    </main>
+    <footer>
+        <button id="toggle-skills">Show Skills Section</button>
+        <button id="download-pdf">Download as PDF</button>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const toggleSkillsButton = document.getElementById('toggle-skills');
+            const skillsSection = document.getElementById('skills');
+            const generateLinkButton = document.getElementById('generate-link');
+            const resumeLinkParagraph = document.getElementById('resume-link');
+            const usernameInput = document.getElementById('username');
+            const downloadPdfButton = document.getElementById('download-pdf');
+
+            // Toggle skills section
+            toggleSkillsButton.addEventListener('click', () => {
+                if (skillsSection.style.display === 'none' || skillsSection.style.display === '') {
+                    skillsSection.style.display = 'block';
+                    toggleSkillsButton.textContent = 'Hide Skills Section';
+                } else {
+                    skillsSection.style.display = 'none';
+                    toggleSkillsButton.textContent = 'Show Skills Section';
+                }
+            });
+
+            // Generate unique URL
+            generateLinkButton.addEventListener('click', () => {
+                const username = usernameInput.value.trim();
+                if (username) {
+                    const uniqueURL = `https://${username}.vercel.app/resume`;
+                    resumeLinkParagraph.textContent = `Your resume link: ${uniqueURL}`;
+                    resumeLinkParagraph.classList.remove("hidden");
+                } else {
+                    alert("Please enter a username.");
+                }
+            });
+
+            // Download as PDF
+            downloadPdfButton.addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+
+                html2canvas(document.querySelector("main")).then(canvas => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const doc = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'mm',
+                        format: 'a4'
+                    });
+                    const imgWidth = 210; // A4 width in mm
+                    const pageHeight = 295; // A4 height in mm
+                    const imgHeight = canvas.height * imgWidth / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        doc.addPage();
+                        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    doc.save('resume.pdf');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
